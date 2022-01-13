@@ -4,9 +4,9 @@ IMDController::IMDController(const char *serial_number, MCP2210Linux::cs_pin_t a
 :   dev_((wchar_t*)serial_number, active_cs, buffer_size, spi_speed, spi_speed),
     serial_(&dev_)
 {
-    serial_.add_frame(0, &ctrlr_msg);
-    serial_.add_frame(1, &cmd);
-    serial_.add_frame(2, &feed);
+    serial_.add_frame(0, &ctrlr_msg_);
+    serial_.add_frame(1, &cmd_);
+    serial_.add_frame(2, &feed_);
     serial_.add_frame(3, &vel_param_[M1]);
     serial_.add_frame(4, &vel_param_[M2]);
     serial_.add_frame(5, &cur_param_[M1]);
@@ -33,7 +33,7 @@ void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
         cur_param_[i].tx.kd = param[i].cur.kd;
     }
     
-    ctrlr_msg.tx.command = IMD::CMD_RESET;
+    ctrlr_msg_.tx.command = IMD::CMD_RESET;
     serial_.write(0);
     serial_.update();
 
@@ -65,14 +65,31 @@ void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
 
 int IMDController::update()
 {
-    cmd.data.frame_id = count_;
+    cmd_.data.frame_id = count_;
     count_++;
     serial_.write(1);
     return serial_.update();
 }
 
-int IMDController::update(long count)
+int IMDController::update(uint32_t count)
 {
     count_ = 0;
     return update();
+}
+
+
+void IMDController::set_speed(IMDController::motor_t m, float rps)
+{
+    if(m < MOTOR_NUM)
+        cmd_.data.command[m] = rps;
+}
+
+ctrl_feed_msg_t &IMDController::get_state()
+{
+    return feed_.data;
+}
+
+bool IMDController::state_updated()
+{
+    return feed_.was_updated();
 }

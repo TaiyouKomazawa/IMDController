@@ -13,7 +13,9 @@
 class IMDController
 {
 public:
-
+    /**
+     * @brief どのモータをしているかを示す列挙型
+     */
     typedef enum MotorType
     {
         M1 = 0,
@@ -21,12 +23,9 @@ public:
         MOTOR_NUM,
     }motor_t;
 
-    enum {
-        VEL_MSG_HEAD     = 3,
-        CUR_MSG_HEAD     = 5,
-        INIT_MSG_HEAD    = 7,
-    };
-
+    /**
+     * @brief PID制御パラメータ構造体型
+     */
     typedef struct PIDParameterType
     {
         /* 比例制御ゲイン */
@@ -37,6 +36,9 @@ public:
 	    float kd;
     }pid_param_t;
 
+    /**
+     * @brief モータの制御設定構造体
+     */
     typedef struct MotorParameterType
     {
         /* エンコーダのCPR(count par revolution)単相パルス数(PPR)の４倍 */
@@ -53,10 +55,10 @@ public:
         pid_param_t cur;
     }motor_param_t;
 
-    CtrlCmdMsg cmd;
-    CtrlFeedMsg feed;
-
-    IMD::CtrlrMsg ctrlr_msg;
+    static void display_serial_number()
+    {
+        MCP2210Linux::display_serial_number();
+    }
 
     IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs, 
                         uint8_t buffer_size = MCP2210Linux::DEFAULRT_BUFFER_SIZE,
@@ -67,9 +69,29 @@ public:
 
     int update();
 
-    int update(long count);
+    int update(uint32_t count);
+
+    void set_speed(motor_t m, float rps);
+
+    ctrl_feed_msg_t &get_state();
+
+    bool state_updated();
 
 private:
+
+    /**
+     * @brief 各メッセージのフレームIDの先頭を示す。
+     */
+    enum {
+        VEL_MSG_HEAD     = 3,
+        CUR_MSG_HEAD     = 5,
+        INIT_MSG_HEAD    = 7,
+    };
+
+    IMD::CtrlrMsg ctrlr_msg_;
+    CtrlCmdMsg cmd_;
+    CtrlFeedMsg feed_;
+
     long count_;
     MCP2210Linux dev_;
     SerialBridge serial_;
