@@ -71,6 +71,7 @@ public:
 
     IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs);
 
+    ~IMDController();
     
     void ctrl_begin(motor_param_t param[2]);
 
