@@ -55,15 +55,22 @@ public:
         pid_param_t cur;
     }motor_param_t;
 
+    /**
+     * @brief IMDのSPI通信の設定
+     */
+    enum{
+        IMD_BUFFER_SIZE = 28,
+        IMD_SPI_SPEED = 5000000,
+        IMD_SPI_MODE = 3,
+    };
+
     static void display_serial_number()
     {
         MCP2210Linux::display_serial_number();
     }
 
-    IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs, 
-                        uint8_t buffer_size = MCP2210Linux::DEFAULRT_BUFFER_SIZE,
-                        uint32_t spi_speed = MCP2210Linux::SPI_SPEED,
-                        uint8_t spi_mode = MCP2210Linux::SPI_MODE);
+    IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs);
+
     
     void ctrl_begin(motor_param_t param[2]);
 

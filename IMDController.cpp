@@ -1,7 +1,6 @@
 #include "IMDController.hpp"
-
-IMDController::IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs, uint8_t buffer_size,uint32_t spi_speed, uint8_t spi_mode)
-:   dev_((wchar_t*)serial_number, active_cs, buffer_size, spi_speed, spi_speed),
+IMDController::IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs)
+:   dev_((wchar_t*)serial_number, active_cs, IMD_BUFFER_SIZE, IMD_SPI_SPEED, IMD_SPI_MODE),
     serial_(&dev_)
 {
     serial_.add_frame(0, &ctrlr_msg_);
