@@ -9,7 +9,7 @@
 #define INC_PARAMMSGS_HPP_
 
 #include <stdint.h>
-#include "SerialBridge/src/Message.hpp"
+#include "../SerialBridge/src/Message.hpp"
 
 /**
  * @brief 制御パラメータを扱うパッケージ構造体型

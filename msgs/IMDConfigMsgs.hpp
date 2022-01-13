@@ -9,7 +9,7 @@
 #define INC_IMDCONFIGMSGS_HPP_
 
 #include <stdint.h>
-#include "SerialBridge/src/Message.hpp"
+#include "../SerialBridge/src/Message.hpp"
 
 /**
  * @brief IMDのシステムコマンド用の名前空間

@@ -9,7 +9,7 @@
 #define INC_CTRLMSGS_HPP_
 
 #include <stdint.h>
-#include "SerialBridge/src/Message.hpp"
+#include "../SerialBridge/src/Message.hpp"
 
 /**
  * @brief 回転指令値を扱うパケット構造体型
