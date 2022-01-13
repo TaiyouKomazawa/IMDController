@@ -15,6 +15,10 @@ IMDController::IMDController(const char *serial_number, MCP2210Linux::cs_pin_t a
     serial_.add_frame(8, &init_[M2]);
 }
 
+IMDController::~IMDController()
+{
+}
+
 void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
 {
     for(int i = 0; i < MOTOR_NUM; i++){
