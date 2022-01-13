@@ -1,3 +1,11 @@
+/**
+ * @file IMDController.hpp
+ * @author Taiyou Komazawa (taiyou24690@gmail.com)
+ * @brief InteractiveMDを制御するためのクラス
+ * @version 1.0.0
+ * @date 2022-01-13
+ * 
+ */
 
 #ifndef _IMD_CONTROLLER_HPP_
 #define _IMD_CONTROLLER_HPP_
