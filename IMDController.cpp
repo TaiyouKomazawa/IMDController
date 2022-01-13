@@ -15,12 +15,23 @@ IMDController::IMDController(const char *serial_number, MCP2210Linux::cs_pin_t a
     serial_.add_frame(8, &init_[M2]);
 }
 
-void IMDController::ctrl_begin(IMDController::ctrl_init_t init[2], IMDController::ctrl_param_t param[2])
+void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
 {
-    init_[M1].tx = (ctrl_init_msg_t)init[M1];
-    init_[M2].tx = (ctrl_init_msg_t)init[M2];
-    vel_param_[M1].tx = (ctrl_param_msg_t)param[M1];
-    vel_param_[M2].tx = (ctrl_param_msg_t)param[M2];
+    for(int i = 0; i < MOTOR_NUM; i++){
+        init_[i].tx.is_received = true;
+        init_[i].tx.dir_reverse = param[i].dir_reverse;
+        init_[i].tx.encoder_cpr = param[i].encoder_cpr;
+        init_[i].tx.gear_ratio = param[i].gear_ratio;
+        init_[i].tx.max_rps = param[i].max_rps;
+
+        vel_param_[i].tx.kp = param[i].vel.kp;
+        vel_param_[i].tx.ki = param[i].vel.ki;
+        vel_param_[i].tx.kd = param[i].vel.kd;
+
+        cur_param_[i].tx.kp = param[i].cur.kp;
+        cur_param_[i].tx.ki = param[i].cur.ki;
+        cur_param_[i].tx.kd = param[i].cur.kd;
+    }
     
     ctrlr_msg.tx.command = IMD::CMD_RESET;
     serial_.write(0);
