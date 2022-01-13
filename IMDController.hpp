@@ -34,7 +34,7 @@ public:
 
     IMD::CtrlrMsg ctrlr_msg;
 
-    IMDController(char *serial_number, MCP2210Linux::cs_pin_t active_cs, 
+    IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs, 
                         uint8_t buffer_size = MCP2210Linux::DEFAULRT_BUFFER_SIZE,
                         uint32_t spi_speed = MCP2210Linux::SPI_SPEED,
                         uint8_t spi_mode = MCP2210Linux::SPI_MODE)
