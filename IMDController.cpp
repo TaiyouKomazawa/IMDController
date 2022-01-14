@@ -14,8 +14,8 @@
  * @param[in] serial_number MCP2210各デバイス固有のシリアルナンバー
  * @param[in] active_cs     MCP2210Linux::cs_pin_t列挙型(使用するチップセレクタピン名)
  */
-IMDController::IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs)
-:   dev_((wchar_t*)serial_number, active_cs, IMD_BUFFER_SIZE, IMD_SPI_SPEED, IMD_SPI_MODE),
+IMDController::IMDController(wchar_t *serial_number, MCP2210Linux::cs_pin_t active_cs)
+:   dev_(serial_number, active_cs, IMD_BUFFER_SIZE, IMD_SPI_SPEED, IMD_SPI_MODE),
     serial_(&dev_)
 {
     serial_.add_frame(0, &ctrlr_msg_);

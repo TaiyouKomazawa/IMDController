@@ -77,7 +77,7 @@ public:
         MCP2210Linux::display_serial_number();
     }
 
-    IMDController(const char *serial_number, MCP2210Linux::cs_pin_t active_cs);
+    IMDController(wchar_t *serial_number, MCP2210Linux::cs_pin_t active_cs);
 
     ~IMDController();
     
