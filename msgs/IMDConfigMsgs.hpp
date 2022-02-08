@@ -61,5 +61,5 @@ namespace IMD
 	 */
 	typedef sb::DuplexMessage<sys_state_msg_t, sys_cmd_msg_t> CtrlrMsg;
 
-};
+}
 #endif /* INC_IMDCONFIGMSGS_HPP_ */
