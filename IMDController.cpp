@@ -73,6 +73,7 @@ void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
                 serial_.write(INIT_MSG_HEAD + i);
                 serial_.update();
             }
+            sleep(0.01);
         }
     }
 
