@@ -68,7 +68,7 @@ public:
      */
     enum{
         IMD_BUFFER_SIZE = 28,
-        IMD_SPI_SPEED = 5000000,
+        IMD_SPI_SPEED = 1000000,
         IMD_SPI_MODE = 3,
     };
 
