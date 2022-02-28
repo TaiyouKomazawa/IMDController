@@ -87,7 +87,7 @@ public:
 
     int update(uint32_t count);
 
-    void set_speed(motor_t m, float rps);
+    void set_rps(motor_t m, float rps);
 
     ctrl_feed_msg_t &get_state();
 

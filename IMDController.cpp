@@ -129,7 +129,7 @@ int IMDController::update(uint32_t count)
  * @param[in] rps   回転速度[rps]
  * @retval None
  */
-void IMDController::set_speed(IMDController::motor_t m, float rps)
+void IMDController::set_rps(IMDController::motor_t m, float rps)
 {
     if(m < MOTOR_NUM)
         cmd_.data.command[m] = rps;
