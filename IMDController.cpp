@@ -61,8 +61,11 @@ void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
     }
     
     ctrlr_msg_.tx.command = IMD::CMD_RESET;
-    serial_.write(0);
-    serial_.update();
+    do{
+        serial_.write(0);
+    }while(serial_.update() != 0);
+
+    sleep(0.01);
 
     for(int i = 0; i < MOTOR_NUM; i++){
         bool init_ok = false;
@@ -70,8 +73,9 @@ void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
             serial_.update();
             if(init_[i].was_updated()){
                 init_ok = true;
-                serial_.write(INIT_MSG_HEAD + i);
-                serial_.update();
+                do{
+                    serial_.write(INIT_MSG_HEAD + i);
+                }while(serial_.update() != 0);
             }
             sleep(0.01);
         }
@@ -79,12 +83,14 @@ void IMDController::ctrl_begin(IMDController::motor_param_t param[2])
 
     for(int i = 0; i < MOTOR_NUM; i++){
         while(!vel_param_[i].rx.is_received){
-            serial_.write(VEL_MSG_HEAD + i);
-            serial_.update();
+            do{
+                serial_.write(VEL_MSG_HEAD + i);
+            }while(serial_.update() != 0);
         }
         while(!cur_param_[i].rx.is_received){
-            serial_.write(CUR_MSG_HEAD + i);
-            serial_.update();
+            do{
+                serial_.write(CUR_MSG_HEAD + i);
+            }while(serial_.update() != 0);
         }
     }
 
